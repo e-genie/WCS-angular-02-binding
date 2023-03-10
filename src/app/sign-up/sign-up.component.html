@@ -1,1 +1,103 @@
-<p>sign-up works!</p>
+<form #mySignUpForm="ngForm" (ngSubmit)="onSubmit()">
+  <!-- Message d'erreurs du formulaire global -->
+  <div *ngIf="mySignUpForm.errors">
+    Form submitted ? {{ mySignUpForm.submitted }} Form valid ?
+    {{ mySignUpForm.valid }} Form invalid ? {{ mySignUpForm.invalid }}
+  </div>
+
+  <fieldset>
+    <label for="email">Email</label>
+    <input
+      id="email"
+      name="email"
+      type="text"
+      [(ngModel)]="model.email"
+      #email="ngModel"
+      required
+      email
+    />
+  </fieldset>
+
+  <!-- Message d'erreurs d'email -->
+  <div *ngIf="mySignUpForm.submitted">
+    <span *ngIf="email.errors?.['required']">L'email est requis</span>
+    <span *ngIf="email.errors?.['email']"
+      >L'adresse email doit être valide</span
+    >
+  </div>
+
+  <fieldset>
+    <label for="firstname">Prénom</label>
+    <input
+      id="firstname"
+      name="firstname"
+      [(ngModel)]="model.firstname"
+      #firstname="ngModel"
+      type="text"
+      required
+      minlength="3"
+      maxlength="15"
+    />
+  </fieldset>
+
+  <!-- Message d'erreurs de prénom -->
+  <div *ngIf="mySignUpForm.submitted">
+    <span *ngIf="firstname.errors?.['required']">Le prénom est requis</span>
+    <span *ngIf="firstname.errors?.['minlength']"
+      >Le prénom doit comporter au moins 3 caractères</span
+    >
+    <span *ngIf="firstname.errors?.['maxlength']"
+      >Le prénom ne doit pas dépasser 15 caractères</span
+    >
+  </div>
+
+  <fieldset>
+    <label for="lastname">Nom</label>
+    <input
+      id="lastname"
+      name="lastname"
+      type="text"
+      [(ngModel)]="model.lastname"
+      #lastname="ngModel"
+      required
+      minlength="3"
+      maxlength="15"
+    />
+  </fieldset>
+
+  <!-- Message d'erreurs de nom -->
+  <div *ngIf="mySignUpForm.submitted">
+    <span *ngIf="lastname.errors?.['required']"> Le nom est requis</span>
+    <span *ngIf="lastname.errors?.['minlength']"
+      >Le nom doit comporter au moins 3 caractères</span
+    >
+    <span *ngIf="lastname.errors?.['maxlength']"
+      >Le nom ne doit pas dépasser 15 caractères</span
+    >
+  </div>
+
+  <fieldset>
+    <label for="password">Password</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      [(ngModel)]="model.password"
+      #password="ngModel"
+      required
+      password
+    />
+  </fieldset>
+
+  <!-- Message d'erreurs de mot de passe -->
+  <div *ngIf="mySignUpForm.submitted">
+    <span *ngIf="password.errors?.['required']"
+      >Le mot de passe est requis</span
+    >
+    <span *ngIf="password.errors?.['password']"
+      >Le mot de passe doit être valide</span
+    >
+  </div>
+
+  <button type="submit">Inscription</button>
+</form>
